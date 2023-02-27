@@ -9,6 +9,7 @@ public class BallBounce : MonoBehaviour
 
     public AudioClip hitSound;
 
+    public GameManager gameManager;
 
     private void Start()
     {
@@ -17,12 +18,19 @@ public class BallBounce : MonoBehaviour
 
     private void Update()
     {
-   
+        if (gameManager.gameOver)
+        {
+            rb.constraints = RigidbodyConstraints.FreezePosition;
+        }
     }
     private void OnCollisionEnter(Collision other)
     {
-        rb.velocity = new Vector3(0, bounceVel, 0);
-      
         AudioSource.PlayClipAtPoint(hitSound, transform.position);
+
+        rb.velocity = new Vector3(0, bounceVel, 0);
+        if (other.gameObject.GetComponent<MeshRenderer>().material.name == "UnSafeColor (Instance)")
+        {
+            gameManager.GameOver();
+        }
     }
 }

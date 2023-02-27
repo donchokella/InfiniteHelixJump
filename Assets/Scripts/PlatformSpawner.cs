@@ -8,18 +8,18 @@ public class PlatformSpawner : MonoBehaviour
     private Transform getPos;
     private Vector3 newPos;
     private float randomRotation;
-
     public AudioClip scoreSound;
-
     public float spawnPos;
-    public Transform ball;
 
-    private void Update()
+    public Score score;
+  
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (ball.position.y + 2 < gameObject.transform.position.y)
+        if (other.transform.position.y< gameObject.transform.position.y)
         {
-            Debug.Log("hop");
             InstantiatePlatform();
+            
         }
 
     }
@@ -34,7 +34,10 @@ public class PlatformSpawner : MonoBehaviour
         newPlatform.transform.position = newPos;
         newPlatform.transform.rotation = Quaternion.Euler(0, randomRotation, 0);
 
-        Destroy(transform.parent.gameObject);
         AudioSource.PlayClipAtPoint(scoreSound, transform.position);
+
+        score.Scored();        
+        Destroy(transform.parent.gameObject);
+
     }
 }
