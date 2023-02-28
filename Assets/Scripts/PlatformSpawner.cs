@@ -9,17 +9,17 @@ public class PlatformSpawner : MonoBehaviour
     private Vector3 newPos;
     private float randomRotation;
     public AudioClip scoreSound;
-    public float spawnPos;
+    float spawnPos = -11;
 
     public Score score;
-  
+
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.position.y< gameObject.transform.position.y)
+        if (other.transform.position.y < gameObject.transform.position.y)
         {
             InstantiatePlatform();
-            
+
         }
 
     }
@@ -36,7 +36,7 @@ public class PlatformSpawner : MonoBehaviour
 
         AudioSource.PlayClipAtPoint(scoreSound, transform.position);
 
-        score.Scored();        
+        score.Scored();
         Destroy(transform.parent.gameObject);
 
     }
